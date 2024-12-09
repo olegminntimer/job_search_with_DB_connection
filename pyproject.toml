@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "search-vacancies-with-db-connection"
+name = "job_seach-with-db-connection"
 version = "0.1.0"
 description = ""
 authors = ["Oleg Timershayahov <olegtimer@yandex.ru>"]
