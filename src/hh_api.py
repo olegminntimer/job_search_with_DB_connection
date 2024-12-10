@@ -1,6 +1,5 @@
 import requests
 
-
 class HeadHunterAPI:
     """Класс для работы с API HeadHunter."""
 
