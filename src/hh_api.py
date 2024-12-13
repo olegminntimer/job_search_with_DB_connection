@@ -14,7 +14,7 @@ class HeadHunterAPI:
         self.vacancies = []
 
 
-    def get_vacancies(self, employer_id: str) -> list[dict[str, Any]]:
+    def get_vacancies(self, keyword: str) -> list[dict[str, Any]]:
         """Метод загрузки вакансий с НН"""
         self.__params["text"] = keyword
         while self.__params.get("page") != 20:
@@ -30,7 +30,7 @@ class HeadHunterAPI:
 if __name__ == "__main__":
     hh_api = HeadHunterAPI()
     # employers_list = hh_api.get_employers()
-    vacancies_list = hh_api.get_vacancies()
+    vacancies_list = hh_api.get_vacancies("Альфа-Банк")
     print(vacancies_list)
     # for employer in employers_list:
     #     if employer["open_vacancies"] > 0:
