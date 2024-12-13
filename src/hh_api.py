@@ -1,6 +1,7 @@
 from typing import Any
-
 import requests
+
+from src.utils import list_formatter
 
 
 class HeadHunterAPI:
@@ -17,16 +18,16 @@ class HeadHunterAPI:
         """Метод загрузки вакансий по списку работодателей."""
         i_count = 1
         for employer_id in employer_ids:
-            # https: // api.hh.ru / vacancies?employer_id = 80
             # self.__params["text"] = employer
             # while self.__params.get("page") != 20:
-            response = requests.get(f"https://api.hh.ru/vacancies?employer_id={employer_id}", headers=self.__headers, params=self.__params)
+            response = requests.get(f"https://api.hh.ru/vacancies?employer_id={employer_id}", headers=self.__headers,
+                                    params=self.__params)
             # if response.status_code != 200:
             #     continue
-            vacancies = response.json()["items"]
+            vacancies = list_formatter(response.json()["items"])
             self.vacancies.extend(vacancies)
-            self.__params["page"] += 1
-            print(i_count, end="-")
+            # self.__params["page"] += 1
+            print(i_count, end=".")
             i_count += 1
         print()
         return self.vacancies
