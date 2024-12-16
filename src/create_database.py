@@ -31,8 +31,8 @@ def create_database(database_name: str, params: dict) -> None:
                 vacancy_id SERIAL PRIMARY KEY, 
                 employer_id INT REFERENCES employers(employer_id), 
                 name VARCHAR(255) NOT NULL,
-                url VARCHAR(255),
-                salary INTEGER
+                salary INTEGER,
+                url VARCHAR(255)
             )
         """)
 
@@ -40,18 +40,21 @@ def create_database(database_name: str, params: dict) -> None:
     conn.close()
 
 
-def save_data_to_database(data: list[dict[str, Any]], database_name: str, params: dict, employer_ids: dict) -> None:
+def save_data_to_database(data: list[dict[str, Any]], database_name: str, params: dict) -> None:
     """Сохранение данных о работодателях и вакансиях в базу данных."""
     conn = psycopg2.connect(dbname=database_name, **params)
     with conn.cursor() as cur:
-        for employer in employer_ids:
-
-            cur.execute(
-                """
-                INSERT INTO employers (name)
-                VALUES (%s)
-                RETURNING employer_id
-                """,
-                employer_ids[employer]
-            )
+        for employer in data:
+            cur.execute("INSERT INTO employers (name) VALUES (%s) RETURNING employer_id", (employer['employer']['name'],))
             employer_id = cur.fetchone()[0]
+            vacancies_data = employer['vacancies']
+            for vacancy in vacancies_data:
+                cur.execute(
+                    """
+                    INSERT INTO vacancies (employer_id, name, salary, url)
+                    VALUES (%s, %s, %s, %s)
+                    """,
+                    (employer_id, vacancy['name'], int(vacancy['salary']), vacancy['url'])
+                )
+    conn.commit()
+    conn.close()

@@ -11,7 +11,7 @@ def list_formatter(vacancies: list) -> list:
                     vacancy_salary = vacancy["salary"]["to"]
         vacancies_formatted.append(
             {
-                "vacancy": vacancy["name"],
+                "name": vacancy["name"],
                 "salary": vacancy_salary,
                 "url": vacancy["alternate_url"],
                 #"employer_id": vacancy["employer"]["id"],

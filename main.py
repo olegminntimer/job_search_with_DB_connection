@@ -6,7 +6,7 @@ from src.hh_data import HeadHunterAPI
 def main():
     employer_ids = {
         "80": "Альфа-Банк",
-        # "1740": "Яндекс",
+        "1740": "Яндекс",
         # "4181": "ВТБ",
         # "1373": "Аэрофлот",
         # "39305": "Газпром нефть",
@@ -21,10 +21,10 @@ def main():
     data = hh_api.get_data(employer_ids)
     print(data)
 
-    #params = config()
-    #create_database('hh_employers_vacancies', params)
-    #
-    # save_data_to_database(data, 'hh_employers_vacancies', params, employer_ids)
+    params = config()
+    create_database('hh_employers_vacancies', params)
+
+    save_data_to_database(data, 'hh_employers_vacancies', params)
 
 
 

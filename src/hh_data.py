@@ -22,7 +22,7 @@ class HeadHunterAPI:
                                     params=self.__params)
             vacancies = response.json()["items"]
             self.data.append({
-                'employer': {key: value},
+                'employer': {"hh_employer_id": key, "name": value},
                 'vacancies': list_formatter(vacancies)
             })
             print(i_count, end=".")
