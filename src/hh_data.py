@@ -16,7 +16,6 @@ class HeadHunterAPI:
 
     def get_data(self, hh_employer_ids: dict) -> list[dict[str, Any]]:
         """Метод загрузки вакансий по списку работодателей."""
-        i_count = 1
         for key, value in hh_employer_ids.items():
             response = requests.get(f"{self.__url}?employer_id={key}", headers=self.__headers,
                                     params=self.__params)
@@ -25,7 +24,4 @@ class HeadHunterAPI:
                 'employer': {"hh_employer_id": key, "name": value},
                 'vacancies': list_formatter(vacancies)
             })
-            print(i_count, end=".")
-            i_count += 1
-        print()
         return self.data
