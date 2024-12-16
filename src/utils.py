@@ -2,19 +2,19 @@ def list_formatter(vacancies: list) -> list:
     """Функция изменяет формат полученного списка с сайта в упрощенный список."""
     vacancies_formatted = []
     for vacancy in vacancies:
+        vacancy_salary = 0
         if vacancy["salary"]:
-            if not (vacancy["salary"]["from"]):
-                vacancy["salary"]["from"] = 0
-            if not (vacancy["salary"]["to"]):
-                vacancy["salary"]["to"] = 0
-        else:
-            vacancy["salary"] = 0
+            if (vacancy["salary"]["from"]):
+                vacancy_salary = vacancy["salary"]["from"]
+            else:
+                if (vacancy["salary"]["to"]):
+                    vacancy_salary = vacancy["salary"]["to"]
         vacancies_formatted.append(
             {
                 "vacancy": vacancy["name"],
-                "salary": vacancy["salary"],
+                "salary": vacancy_salary,
                 "url": vacancy["alternate_url"],
-                "employer": vacancy["employer"]["name"],
+                #"employer_id": vacancy["employer"]["id"],
             }
         )
     return vacancies_formatted
